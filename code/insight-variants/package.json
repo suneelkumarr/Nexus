@@ -1,0 +1,62 @@
+{
+  "name": "instagram-analytics-insight-variants",
+  "version": "1.0.0",
+  "description": "React components for testing different Instagram analytics insight presentation approaches",
+  "main": "components/index.ts",
+  "types": "components/index.ts",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "test": "vitest"
+  },
+  "keywords": [
+    "react",
+    "typescript",
+    "analytics",
+    "instagram",
+    "ui-components",
+    "ab-testing",
+    "insights",
+    "data-visualization"
+  ],
+  "author": "Instagram Analytics Team",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "@vitejs/plugin-react": "^4.0.0",
+    "autoprefixer": "^10.4.14",
+    "eslint": "^8.45.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.3",
+    "postcss": "^8.4.27",
+    "tailwindcss": "^3.3.3",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5",
+    "vitest": "^0.34.0"
+  },
+  "dependencies": {
+    "lucide-react": "^0.290.0"
+  },
+  "files": [
+    "components",
+    "types",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-org/instagram-analytics-insight-variants.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-org/instagram-analytics-insight-variants/issues"
+  },
+  "homepage": "https://github.com/your-org/instagram-analytics-insight-variants#readme"
+}

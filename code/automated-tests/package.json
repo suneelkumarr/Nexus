@@ -1,0 +1,157 @@
+{
+  "name": "instagram-analytics-automated-tests",
+  "version": "1.0.0",
+  "description": "Comprehensive automated testing framework for Instagram Analytics Platform",
+  "private": true,
+  "scripts": {
+    "test": "vitest",
+    "test:unit": "vitest run unit/",
+    "test:integration": "vitest run integration/",
+    "test:watch": "vitest watch",
+    "test:coverage": "vitest run --coverage",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:debug": "playwright test --debug",
+    "test:mobile": "playwright test --project='Mobile Chrome' --project='Mobile Safari'",
+    "test:accessibility": "playwright test accessibility/",
+    "test:performance": "playwright test performance/",
+    "test:api": "vitest run integration/api/",
+    "test:all": "pnpm test:unit && pnpm test:integration && pnpm test:e2e",
+    "test:ci": "pnpm test:unit && pnpm test:integration && pnpm test:e2e && pnpm test:accessibility && pnpm test:performance",
+    "build:test-data": "node scripts/generate-test-data.js",
+    "clean": "rimraf coverage/ test-results/ playwright-report/ .vite/",
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint . --ext .ts,.tsx --fix",
+    "type-check": "tsc --noEmit",
+    "prepare": "playwright install --with-deps",
+    "serve": "http-server dist -p 3000",
+    "test:visual": "playwright test --project='chromium' --grep @visual",
+    "test:cross-browser": "playwright test --project=chromium --project=firefox --project=safari",
+    "test:debug-screenshots": "playwright test --project=chromium --update-snapshots",
+    "test:load": "k6 run tests/performance/load-test.js"
+  },
+  "dependencies": {
+    "@playwright/test": "^1.40.0",
+    "@testing-library/jest-dom": "^6.1.5",
+    "@testing-library/react": "^14.1.2",
+    "@testing-library/user-event": "^14.5.1",
+    "@types/jest": "^29.5.8",
+    "jsdom": "^23.0.1",
+    "msw": "^2.0.8",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "typescript": "^5.2.2",
+    "vitest": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.9.0",
+    "@typescript-eslint/eslint-plugin": "^6.11.0",
+    "@typescript-eslint/parser": "^6.11.0",
+    "eslint": "^8.54.0",
+    "eslint-plugin-playwright": "^0.15.3",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-testing-library": "^6.2.0",
+    "http-server": "^14.1.1",
+    "k6": "^0.47.0",
+    "pixelmatch": "^5.3.0",
+    "playwright": "^1.40.0",
+    "rimraf": "^5.0.5"
+  },
+  "keywords": [
+    "testing",
+    "automated-testing",
+    "playwright",
+    "vitest",
+    "instagram-analytics",
+    "e2e-tests",
+    "unit-tests",
+    "integration-tests",
+    "accessibility-tests",
+    "performance-tests"
+  ],
+  "author": "Instagram Analytics Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/instagram-analytics-platform"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "test": {
+    "testEnvironment": "jsdom",
+    "setupFilesAfterEnv": [
+      "<rootDir>/setup.ts"
+    ],
+    "testMatch": [
+      "**/__tests__/**/*.{test,spec}.{js,jsx,ts,tsx}",
+      "**/*.{test,spec}.{js,jsx,ts,tsx}"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{ts,tsx}",
+      "!src/**/*.d.ts",
+      "!src/test-utils.tsx"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 80,
+        "functions": 80,
+        "lines": 80,
+        "statements": 80
+      }
+    }
+  },
+  "playwright": {
+    "timeout": 30000,
+    "globalTimeout": 900000,
+    "workers": 4,
+    "retries": {
+      "failedTestRetry": 2,
+      "failedTestOverallRetry": 1
+    },
+    "reporter": [
+      ["html", { "open": "never" }],
+      ["json", { "outputFile": "test-results/results.json" }],
+      ["junit", { "outputFile": "test-results/results.xml" }],
+      ["list"]
+    ],
+    "use": {
+      "baseURL": "http://localhost:3000",
+      "trace": "on-first-retry",
+      "screenshot": "only-on-failure",
+      "video": "retain-on-failure"
+    },
+    "projects": [
+      {
+        "name": "chromium",
+        "use": { "browserName": "chromium" }
+      },
+      {
+        "name": "firefox",
+        "use": { "browserName": "firefox" }
+      },
+      {
+        "name": "safari",
+        "use": { "browserName": "webkit" }
+      },
+      {
+        "name": "Mobile Chrome",
+        "use": {
+          "browserName": "chromium",
+          "viewport": { "width": 390, "height": 844 },
+          "deviceScaleFactor": 3
+        }
+      },
+      {
+        "name": "Mobile Safari",
+        "use": {
+          "browserName": "webkit",
+          "viewport": { "width": 375, "height": 812 },
+          "deviceScaleFactor": 2
+        }
+      }
+    ]
+  }
+}

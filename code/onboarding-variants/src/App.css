@@ -1,0 +1,211 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Custom styles for onboarding variants */
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  /* Animation utilities */
+  .animate-in {
+    animation-fill-mode: both;
+  }
+  
+  .fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  .slide-in-from-bottom-4 {
+    animation: slideInFromBottom 0.5s ease-out;
+  }
+  
+  .slide-in-from-left-4 {
+    animation: slideInFromLeft 0.5s ease-out;
+  }
+  
+  .slide-in-from-right-4 {
+    animation: slideInFromRight 0.5s ease-out;
+  }
+  
+  .zoom-in {
+    animation: zoomIn 0.3s ease-out;
+  }
+
+  /* Gradient text utility */
+  .gradient-text {
+    @apply bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent;
+  }
+
+  /* Card hover effects */
+  .card-hover {
+    @apply transition-all duration-200 hover:shadow-lg hover:-translate-y-1;
+  }
+
+  /* Button variants */
+  .btn-primary {
+    @apply bg-blue-600 text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
+  }
+
+  .btn-secondary {
+    @apply bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2;
+  }
+
+  /* Social proof styles */
+  .social-proof-card {
+    @apply bg-white border border-gray-200 rounded-lg p-4 shadow-sm;
+  }
+
+  .social-proof-quote {
+    @apply text-gray-700 italic mb-3 leading-relaxed;
+  }
+
+  /* Progress indicators */
+  .progress-dot {
+    @apply w-3 h-3 rounded-full transition-all duration-300;
+  }
+
+  .progress-dot.active {
+    @apply bg-blue-600 scale-125;
+  }
+
+  .progress-dot.completed {
+    @apply bg-green-500;
+  }
+
+  .progress-dot.inactive {
+    @apply bg-gray-300;
+  }
+
+  /* Step navigation */
+  .step-nav-item {
+    @apply flex items-center space-x-3 px-4 py-3 rounded-lg border transition-all cursor-pointer;
+  }
+
+  .step-nav-item.active {
+    @apply bg-blue-600 text-white border-transparent;
+  }
+
+  .step-nav-item.completed {
+    @apply bg-green-50 text-green-700 border-green-200;
+  }
+
+  .step-nav-item.inactive {
+    @apply bg-white text-gray-600 border-gray-200 hover:bg-gray-50;
+  }
+
+  /* Feature cards */
+  .feature-card {
+    @apply bg-white border border-gray-200 rounded-xl p-6 transition-all duration-200 hover:shadow-md;
+  }
+
+  .feature-card:hover {
+    @apply transform -translate-y-1;
+  }
+
+  /* Benefit badges */
+  .benefit-badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800 border border-green-200;
+  }
+
+  /* CTA positioning */
+  .cta-sticky {
+    @apply fixed bottom-6 right-6 z-50;
+  }
+
+  .cta-floating {
+    @apply absolute top-4 right-4 max-w-sm;
+  }
+
+  /* Testimonial styles */
+  .testimonial-quote {
+    @apply text-gray-700 italic leading-relaxed mb-4;
+  }
+
+  .testimonial-author {
+    @apply font-semibold text-gray-900;
+  }
+
+  .testimonial-company {
+    @apply text-gray-600 text-sm;
+  }
+}
+
+@layer utilities {
+  /* Animation delays */
+  .delay-100 {
+    animation-delay: 100ms;
+  }
+
+  .delay-200 {
+    animation-delay: 200ms;
+  }
+
+  .delay-300 {
+    animation-delay: 300ms;
+  }
+
+  .delay-500 {
+    animation-delay: 500ms;
+  }
+
+  /* Custom scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-gray-100 rounded-full;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 rounded-full hover:bg-gray-400;
+  }
+
+  /* Text shadows */
+  .text-shadow-sm {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Backdrop blur utilities */
+  .backdrop-blur-xs {
+    backdrop-filter: blur(2px);
+  }
+
+  /* Custom focus styles */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
+  }
+
+  /* Loading states */
+  .loading-pulse {
+    @apply animate-pulse bg-gray-200;
+  }
+
+  .loading-shimmer {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+}

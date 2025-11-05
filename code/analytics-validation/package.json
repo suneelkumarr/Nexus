@@ -1,0 +1,63 @@
+{
+  "name": "analytics-validation-system",
+  "version": "1.0.0",
+  "description": "Comprehensive analytics tracking and conversion metrics validation system",
+  "main": "dist/utils/main.js",
+  "types": "dist/types/validation-types.d.ts",
+  "scripts": {
+    "validate": "ts-node utils/main.ts",
+    "validate:validation": "ts-node utils/main.ts validation",
+    "validate:test": "ts-node utils/main.ts test",
+    "validate:health": "ts-node utils/main.ts health",
+    "validate:dashboard": "ts-node utils/main.ts dashboard",
+    "test": "ts-node tests/test-suite.ts",
+    "test:stress": "ts-node utils/main.ts test --stress",
+    "build": "tsc",
+    "dev": "nodemon --exec ts-node utils/main.ts",
+    "lint": "eslint src --ext .ts,.tsx",
+    "lint:fix": "eslint src --ext .ts,.tsx --fix"
+  },
+  "keywords": [
+    "analytics",
+    "validation",
+    "ab-testing",
+    "conversion-tracking",
+    "metrics",
+    "dashboard",
+    "performance-monitoring"
+  ],
+  "author": "Instagram Analytics Platform",
+  "license": "MIT",
+  "dependencies": {
+    "typescript": "^5.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "ts-node": "^10.9.0",
+    "nodemon": "^3.0.0",
+    "eslint": "^8.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "prettier": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "dist/",
+    "README.md",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/analytics-validation-system.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-org/analytics-validation-system/issues"
+  },
+  "homepage": "https://github.com/your-org/analytics-validation-system#readme"
+}

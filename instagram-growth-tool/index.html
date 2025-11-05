@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- PWA Configuration -->
+  <meta name="theme-color" content="#0891b2" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="IG Analytics" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  
+  <!-- App Information -->
+  <title>Instagram Analytics Pro - Professional Instagram Growth Platform</title>
+  <meta name="description" content="Professional Instagram analytics platform with AI-powered insights, team collaboration, and comprehensive reporting tools for businesses and creators." />
+  <meta name="keywords" content="instagram analytics, social media analytics, instagram insights, team collaboration, AI analytics, instagram growth" />
+  
+  <!-- Manifest -->
+  <link rel="manifest" href="/manifest.json" />
+  
+  <!-- Icons -->
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192x192.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="/icon-512x512.png" />
+  <link rel="apple-touch-icon" sizes="192x192" href="/icon-192x192.png" />
+  <link rel="apple-touch-icon" sizes="512x512" href="/icon-512x512.png" />
+  
+  <!-- Splash Screens for iOS -->
+  <link rel="apple-touch-startup-image" href="/icon-512x512.png" />
+  
+  <!-- Security -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  
+  <!-- Social Media Meta Tags -->
+  <meta property="og:title" content="Instagram Analytics Pro" />
+  <meta property="og:description" content="Professional Instagram analytics and growth platform with AI-powered insights" />
+  <meta property="og:image" content="/icon-512x512.png" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Instagram Analytics Pro" />
+  <meta name="twitter:description" content="Professional Instagram analytics and growth platform" />
+  <meta name="twitter:image" content="/icon-512x512.png" />
+</head>
+
+<body>
+  <div id="root"></div>
+  
+  <!-- Service Worker Registration -->
+  <script>
+    // Register Service Worker for PWA functionality
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', async () => {
+        try {
+          const registration = await navigator.serviceWorker.register('/sw.js');
+          console.log('Service Worker registered successfully:', registration);
+          
+          // Handle service worker updates
+          registration.addEventListener('updatefound', () => {
+            const newWorker = registration.installing;
+            if (newWorker) {
+              newWorker.addEventListener('statechange', () => {
+                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                  // New service worker is available
+                  if (confirm('A new version is available. Would you like to refresh to get the latest features?')) {
+                    newWorker.postMessage({ type: 'SKIP_WAITING' });
+                    window.location.reload();
+                  }
+                }
+              });
+            }
+          });
+        } catch (error) {
+          console.error('Service Worker registration failed:', error);
+        }
+      });
+      
+      // Handle service worker messages
+      navigator.serviceWorker.addEventListener('message', (event) => {
+        if (event.data && event.data.type === 'UPDATE_AVAILABLE') {
+          console.log('App update available');
+        }
+      });
+    }
+    
+    // PWA Install Prompt
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      console.log('PWA install prompt available');
+      e.preventDefault();
+      deferredPrompt = e;
+      
+      // Show custom install button/banner if desired
+      const installBanner = document.createElement('div');
+      installBanner.innerHTML = `
+        <div style="position: fixed; top: 0; left: 0; right: 0; background: linear-gradient(135deg, #0891b2, #0e7490); color: white; padding: 12px; text-align: center; z-index: 9999; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+          <span style="margin-right: 10px;">📱 Install Instagram Analytics Pro for the best experience!</span>
+          <button id="installBtn" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 6px 12px; border-radius: 4px; cursor: pointer; margin: 0 5px;">Install</button>
+          <button id="dismissBtn" style="background: transparent; border: 1px solid rgba(255,255,255,0.3); color: white; padding: 6px 12px; border-radius: 4px; cursor: pointer;">Not now</button>
+        </div>
+      `;
+      document.body.appendChild(installBanner);
+      
+      document.getElementById('installBtn').addEventListener('click', async () => {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+          console.log('PWA install outcome:', outcome);
+          deferredPrompt = null;
+          installBanner.remove();
+        }
+      });
+      
+      document.getElementById('dismissBtn').addEventListener('click', () => {
+        installBanner.remove();
+        deferredPrompt = null;
+      });
+    });
+    
+    // Handle successful PWA installation
+    window.addEventListener('appinstalled', (e) => {
+      console.log('PWA installed successfully');
+      deferredPrompt = null;
+    });
+    
+    // Notification Permission Request
+    if ('Notification' in window && navigator.serviceWorker) {
+      // Request notification permission after user interaction
+      document.addEventListener('click', requestNotificationPermission, { once: true });
+    }
+    
+    function requestNotificationPermission() {
+      if (Notification.permission === 'default') {
+        Notification.requestPermission().then((permission) => {
+          console.log('Notification permission:', permission);
+        });
+      }
+    }
+    
+    // Performance monitoring
+    if ('performance' in window) {
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          const perfData = performance.getEntriesByType('navigation')[0];
+          if (perfData) {
+            console.log('App load time:', Math.round(perfData.loadEventEnd - perfData.fetchStart), 'ms');
+          }
+        }, 0);
+      });
+    }
+    
+    // Handle online/offline status
+    window.addEventListener('online', () => {
+      console.log('App is online');
+      // You could show a notification here
+    });
+    
+    window.addEventListener('offline', () => {
+      console.log('App is offline');
+      // You could show an offline indicator here
+    });
+  </script>
+  
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
+</html>
